@@ -12,5 +12,5 @@ mv CIFAR-10-JPG-master CIFAR10
 cd <deepworks-build>
 cmake ../ -DBUILD_SAMPLES=ON -DCMAKE_BUILD_TYPE=Release
 make -j8
-./bin/sample_mnist_train /tmp/CIFAR10 <batch_size> <num_epochs> <dump-frequency>
+./bin/sample_cifar10_train /tmp/CIFAR10 <batch_size> <num_epochs> <dump-frequency>
 ```

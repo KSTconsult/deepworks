@@ -38,7 +38,7 @@ size_t custom::CIFAR10Dataset::size() {
 }
 
 dw::IDataset::OutShape custom::CIFAR10Dataset::shape() {
-    return {dw::Shape{32 * 32 * 3}, dw::Shape{1}};
+    return {dw::Shape{32, 32, 3}, dw::Shape{1}};
 }
 
 void custom::CIFAR10Dataset::pull(int idx, dw::Tensor& X, dw::Tensor& y) {
@@ -79,4 +79,6 @@ void custom::CIFAR10Dataset::HWC2CHW(deepworks::Tensor& image) {
 
         target_index++;
     }
+
+    image.reshape({image_shape[2], image_shape[0], image_shape[1]});
 }

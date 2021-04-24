@@ -25,6 +25,7 @@ public:
 
     void copyTo(Tensor& tensor) const;
     void allocate(const Shape& shape);
+    void reshape(const Shape& shape);
 
 private:
     void init(const Shape& shape);
