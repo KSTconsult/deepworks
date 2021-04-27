@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <filesystem>
+#include <iostream>
 
 namespace dw = deepworks;
 namespace fs = std::filesystem;
@@ -38,7 +39,7 @@ size_t custom::CIFAR10Dataset::size() {
 }
 
 dw::IDataset::OutShape custom::CIFAR10Dataset::shape() {
-    return {dw::Shape{32, 32, 3}, dw::Shape{1}};
+    return {dw::Shape{3, 32, 32}, dw::Shape{1}};
 }
 
 void custom::CIFAR10Dataset::pull(int idx, dw::Tensor& X, dw::Tensor& y) {
@@ -52,6 +53,7 @@ void custom::CIFAR10Dataset::pull(int idx, dw::Tensor& X, dw::Tensor& y) {
 void custom::CIFAR10Dataset::HWC2CHW(deepworks::Tensor& image) {
 
     const auto& image_shape = image.shape();
+    std::cout << image_shape << std::endl;
     if (m_image.shape() != image_shape) {
         m_image = deepworks::Tensor(image_shape);
     }
@@ -60,7 +62,7 @@ void custom::CIFAR10Dataset::HWC2CHW(deepworks::Tensor& image) {
     auto source_data = m_image.data();
     auto target_data = image.data();
 
-    size_t channel_stride = image_shape[0] * image_shape[1];
+    size_t channel_stride = 32 * 32;
 
     size_t source_index = 0;
     size_t target_index = 0;
@@ -79,6 +81,4 @@ void custom::CIFAR10Dataset::HWC2CHW(deepworks::Tensor& image) {
 
         target_index++;
     }
-
-    image.reshape({image_shape[2], image_shape[0], image_shape[1]});
 }
