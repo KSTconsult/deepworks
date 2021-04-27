@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <filesystem>
-#include <iostream>
 
 namespace dw = deepworks;
 namespace fs = std::filesystem;
@@ -53,7 +52,6 @@ void custom::CIFAR10Dataset::pull(int idx, dw::Tensor& X, dw::Tensor& y) {
 void custom::CIFAR10Dataset::HWC2CHW(deepworks::Tensor& image) {
 
     const auto& image_shape = image.shape();
-    std::cout << image_shape << std::endl;
     if (m_image.shape() != image_shape) {
         m_image = deepworks::Tensor(image_shape);
     }
